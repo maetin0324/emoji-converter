@@ -26,6 +26,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"emoji-converter/dict"
 )
 
 
@@ -41,7 +42,8 @@ var rootCmd = &cobra.Command{
 			cmd.Help()
 			os.Exit(0)
 		}
-		fmt.Printf("Hello %s\n", args[0])
+		emojis := dict.Load()
+		fmt.Println(emojis)
 	 },
 }
 
