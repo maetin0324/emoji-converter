@@ -5,9 +5,12 @@ package dict
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"log"
 )
+import _ "embed"
+
+//go:embed emoji.json
+var emoji_dict string
 
 type Emoji struct {
 	Emoji string `json:"emoji"`
@@ -20,12 +23,8 @@ type Emoji struct {
 }
 
 func Load() []Emoji {
-	bytes, err := ioutil.ReadFile("dict/emoji.json")
-	if err != nil {
-		log.Fatal(err)
-	}
 	var emojis []Emoji
-	if err := json.Unmarshal(bytes, &emojis); err != nil {
+	if err := json.Unmarshal([]byte(emoji_dict), &emojis); err != nil {
 		log.Fatal(err)
 	}
 	return emojis
