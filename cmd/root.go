@@ -22,28 +22,46 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"os"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"strings"
+
+	"emoji-converter/dict"
 
 	"github.com/spf13/cobra"
-	"emoji-converter/dict"
 )
 
 
+func replaceEmojiToUnicode(str string) string {
+	emojis := dict.Load()
+	for _, emoji := range emojis {
+		str = strings.Replace(str, ":" + emoji.Aliases[0] + ":", emoji.Emoji, -1)
+	}
+	return str
+}
 
-// rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "emoji-converter",
 	Short: "convert emoji to unicode and vice versa",
 	Long: `convert emoji from colon format to unicode and vice versa`,
 	Args: cobra.MaximumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
+		var str string
+		// コマンドライン引数がない場合は標準入力から読み込む
 		if len(args) == 0 {
-			cmd.Help()
-			os.Exit(0)
+			bytes, err := ioutil.ReadAll(os.Stdin)
+			if err != nil {
+				fmt.Println(err)
+				os.Exit(1)
+			}
+			str = string(bytes)
+		} else {
+			str = args[0]
 		}
-		emojis := dict.Load()
-		fmt.Println(emojis)
+		// コロンで囲まれた文字列を絵文字に変換する
+		str = replaceEmojiToUnicode(str)
+		fmt.Println(str)
 	 },
 }
 
