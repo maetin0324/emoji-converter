@@ -1,4 +1,4 @@
-module emoji-converter
+module github.com/maetin0324/emoji-converter
 
 go 1.18
 

@@ -27,7 +27,7 @@ import (
 	"os"
 	"strings"
 
-	"emoji-converter/dict"
+	"github.com/maetin0324/emoji-converter/dict"
 
 	"github.com/spf13/cobra"
 )

@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 package main
 
-import "emoji-converter/cmd"
+import "github.com/maetin0324/emoji-converter/cmd"
 
 func main() {
 	cmd.Execute()
