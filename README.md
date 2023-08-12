@@ -7,6 +7,12 @@ $ go version
 go version go1.18.1 linux/amd64
 ```
 
+# インストール
+インストールにはgoの環境が必要です。
+```bash
+$ go install github.com/maetin0324/emoji-converter@latest
+```
+
 # 使い方
 ## 引数で与える場合
 ```bash
